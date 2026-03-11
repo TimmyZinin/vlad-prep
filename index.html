@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Подготовка к встрече — Влад Климовец</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral:      #E8604C;
+      --coral-light:#FFF0ED;
+      --coral-mid:  #F28B79;
+      --gold:       #F5A623;
+      --gold-light: #FFF8EC;
+      --teal:       #1ABC9C;
+      --teal-light: #E8FBF7;
+      --teal-dark:  #16A085;
+      --purple:     #7C5CBF;
+      --purple-light:#EDE8FF;
+      --blue:       #3B82F6;
+      --blue-light: #EFF6FF;
+      --bg:         #FFF9F5;
+      --surface:    #FFFFFF;
+      --text:       #2D2926;
+      --text-muted: #7A6F6A;
+      --border:     #F0E8E3;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md:  0 4px 20px rgba(0,0,0,0.10);
+      --shadow-lg:  0 8px 40px rgba(0,0,0,0.12);
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .anim-fade-up  { animation: fadeInUp  0.55s ease both; }
+    .anim-fade     { animation: fadeIn    0.55s ease both; }
+    .d1 { animation-delay: 0.10s; }
+    .d2 { animation-delay: 0.20s; }
+    .d3 { animation-delay: 0.30s; }
+    .d4 { animation-delay: 0.40s; }
+    .d5 { animation-delay: 0.50s; }
+    .d6 { animation-delay: 0.60s; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 56px 0; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #E8604C 0%, #F5A623 100%);
+      color: #fff;
+      padding: 64px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 100px;
+      padding: 6px 16px; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.03em; margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 14px; letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: clamp(15px, 2.5vw, 18px);
+      opacity: 0.92; font-weight: 400; max-width: 600px;
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .section-title h2 {
+      font-size: clamp(20px, 3.5vw, 26px);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--text);
+    }
+    .section-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .icon-coral  { background: var(--coral-light);  }
+    .icon-gold   { background: var(--gold-light);   }
+    .icon-teal   { background: var(--teal-light);   }
+    .icon-purple { background: var(--purple-light);  }
+    .icon-blue   { background: var(--blue-light);    }
+    .section-subtitle {
+      color: var(--text-muted); font-size: 15px;
+      margin-bottom: 32px; margin-left: 56px;
+    }
+
+    /* ===== STEP CARDS ===== */
+    .steps-list { display: flex; flex-direction: column; gap: 20px; }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 20px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .step-number {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--coral), var(--coral-mid));
+      color: #fff; font-weight: 800; font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-shadow: 0 4px 12px rgba(232,96,76,0.35);
+    }
+    .step-number.gold {
+      background: linear-gradient(135deg, var(--gold), #E6982A);
+      box-shadow: 0 4px 12px rgba(245,166,35,0.35);
+    }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .step-body p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 10px; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    /* ===== OS TABS ===== */
+    .os-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .os-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+    }
+    .os-box strong {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+    }
+    .os-box ul { list-style: none; padding: 0; }
+    .os-box ul li {
+      font-size: 13px; color: var(--text-muted); padding: 2px 0;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .os-box ul li::before { content: '\2192'; color: var(--coral); font-weight: 700; flex-shrink: 0; }
+
+    /* ===== TERMINAL ===== */
+    .terminal {
+      background: #1E1E2E; border-radius: var(--radius-sm);
+      padding: 16px 20px; margin-top: 12px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 13.5px; overflow-x: auto;
+    }
+    .terminal-bar { display: flex; gap: 6px; margin-bottom: 12px; }
+    .t-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .t-red    { background: #FF5F57; }
+    .t-yellow { background: #FFBD2E; }
+    .t-green  { background: #28CA41; }
+    .terminal code { display: block; color: #A6E3A1; white-space: pre; }
+    .terminal code .prompt  { color: #89B4FA; }
+    .terminal code .comment { color: #6C7086; }
+    .terminal code .success { color: #A6E3A1; }
+    .terminal code .command { color: #CDD6F4; }
+
+    /* ===== NOTES ===== */
+    .note {
+      display: flex; gap: 10px;
+      background: var(--gold-light);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px; margin-top: 12px;
+      font-size: 13.5px; color: var(--text);
+    }
+    .note .note-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+    .note.teal-note {
+      background: var(--teal-light);
+      border-left-color: var(--teal);
+    }
+
+    /* ===== CONNECT GRID ===== */
+    .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .connect-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px; text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .connect-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .connect-card .big-icon { font-size: 36px; display: block; margin-bottom: 10px; }
+    .connect-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .connect-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }
+    .tag {
+      display: inline-block; border-radius: 100px;
+      padding: 2px 10px; font-size: 12px; font-weight: 600; margin-top: 8px;
+    }
+    .tag-coral { background: var(--coral-light); color: var(--coral); }
+    .tag-teal  { background: var(--teal-light); color: var(--teal-dark); }
+    .tag-purple { background: var(--purple-light); color: var(--purple); }
+    .tag-blue  { background: var(--blue-light); color: var(--blue); }
+
+    /* ===== ACTION PLAN ===== */
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 20px;
+    }
+    .plan-card .plan-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+    }
+    .plan-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0;
+    }
+    .plan-card h3 { font-size: 19px; font-weight: 800; color: var(--text); }
+    .plan-card .plan-subtitle {
+      font-size: 13.5px; color: var(--text-muted); margin-top: 2px;
+    }
+    .plan-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+    .plan-card p:last-child { margin-bottom: 0; }
+    .plan-card ul {
+      list-style: none; padding: 0; margin: 12px 0;
+    }
+    .plan-card ul li {
+      font-size: 14.5px; color: var(--text);
+      padding: 8px 0; display: flex; align-items: flex-start; gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .plan-card ul li:last-child { border-bottom: none; }
+    .plan-card ul li .li-icon { flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+
+    /* ===== INSIGHT BOX ===== */
+    .insight-box {
+      display: flex; gap: 14px;
+      background: linear-gradient(135deg, var(--coral-light), var(--gold-light));
+      border: 1px solid #F0D5CC;
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      align-items: flex-start;
+    }
+    .insight-box .insight-icon { font-size: 32px; flex-shrink: 0; }
+    .insight-box h4 {
+      font-size: 17px; font-weight: 800; color: var(--coral); margin-bottom: 6px;
+    }
+    .insight-box p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+    /* ===== TIMELINE ===== */
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+    .timeline-item {
+      display: grid; grid-template-columns: 80px 24px 1fr; gap: 0 16px;
+      position: relative; padding-bottom: 24px;
+    }
+    .timeline-item:not(:last-child) .timeline-line {
+      position: absolute; left: 91px; top: 28px; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .timeline-period {
+      font-size: 12px; font-weight: 700; color: var(--coral);
+      text-align: right; padding-top: 4px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .timeline-dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--coral); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 12px; color: #fff; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(232,96,76,0.3);
+      position: relative; z-index: 1;
+    }
+    .timeline-dot.gold { background: var(--gold); box-shadow: 0 2px 8px rgba(245,166,35,0.3); }
+    .timeline-dot.teal { background: var(--teal); box-shadow: 0 2px 8px rgba(26,188,156,0.3); }
+    .timeline-content {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .timeline-content p { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ===== DIVIDER ===== */
+    .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 0; }
+
+    /* ===== AGENDA ===== */
+    .agenda-bg {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF3E8 100%);
+      border-radius: var(--radius-lg); padding: 36px;
+      border: 1px solid var(--border);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--text); color: rgba(255,255,255,0.85);
+      padding: 44px 0; text-align: center;
+    }
+    .footer .footer-logo { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .footer .footer-tagline { font-size: 13.5px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      display: flex; align-items: center; gap: 7px;
+      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 14px; font-weight: 500; padding: 8px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-links a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      section { padding: 40px 0; }
+      .os-row, .connect-grid { grid-template-columns: 1fr; }
+      .step-card { grid-template-columns: 1fr; gap: 12px 0; }
+      .step-number { width: 40px; height: 40px; font-size: 17px; border-radius: 12px; }
+      .section-subtitle { margin-left: 0; }
+      .plan-card { padding: 20px; }
+      .agenda-bg { padding: 24px; }
+      .timeline-item { grid-template-columns: 60px 20px 1fr; gap: 0 10px; }
+      .timeline-item:not(:last-child) .timeline-line { left: 69px; }
+      .timeline-dot { width: 20px; height: 20px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-badge anim-fade">11 марта 2026</div>
+      <h1 class="anim-fade-up d1">Влад, подготовка<br>к нашей встрече</h1>
+      <p class="anim-fade-up d2">Установи инструменты заранее, чтобы на встрече мы сразу перешли к делу. Ниже &mdash; что нужно сделать и план направлений, которые мы обсудим.</p>
+    </div>
+  </header>
+
+  <!-- ===== SECTION 1: INSTALL ===== -->
+  <section>
+    <div class="container">
+
+      <div class="section-title anim-fade-up">
+        <div class="section-icon icon-coral">1</div>
+        <h2>Шаг 0 &mdash; Подписка Claude Max</h2>
+      </div>
+      <p class="section-subtitle anim-fade-up d1">Без подписки Claude Code не будет работать. Это фундамент.</p>
+
+      <div class="steps-list">
+        <div class="step-card anim-fade-up d2">
+          <div class="step-number gold">$</div>
+          <div class="step-body">
+            <h3>Оплатить Claude Max ($100/мес)</h3>
+            <p>Зайди на <strong>claude.ai</strong>, зарегистрируйся (или войди) и оформи подписку <strong>Claude Max</strong>. Это даёт огромный лимит токенов &mdash; достаточно для серьёзной автоматизации и работы с Claude Code целый день.</p>
+            <div class="note">
+              <span class="note-icon">💡</span>
+              <div>
+                <strong style="display:block; margin-bottom:3px; font-size:13px;">Зачем $100, а не $20?</strong>
+                Claude Pro ($20) даёт доступ к чату, но Claude Code сжигает токены на порядок быстрее &mdash; при активной работе Pro-лимит закончится за 20-30 минут. Max &mdash; это реальная рабочая лошадка.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== SECTION 2: INSTALL CLAUDE CODE ===== -->
+  <section>
+    <div class="container">
+
+      <div class="section-title anim-fade-up">
+        <div class="section-icon icon-teal">2</div>
+        <h2>Установить Claude Code</h2>
+      </div>
+      <p class="section-subtitle anim-fade-up d1">Займёт 10&ndash;15 минут. 4 простых шага.</p>
+
+      <div class="steps-list">
+
+        <!-- Step 1: Terminal -->
+        <div class="step-card anim-fade-up d1">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <h3>Открыть терминал</h3>
+            <p>Терминал &mdash; это текстовый интерфейс компьютера. Здесь будет работать Claude Code.</p>
+            <div class="os-row">
+              <div class="os-box">
+                <strong>Mac</strong>
+                <ul>
+                  <li>Cmd+Space &rarr; "Terminal" &rarr; Enter</li>
+                  <li>Или: Finder &rarr; Программы &rarr; Утилиты &rarr; Terminal</li>
+                </ul>
+              </div>
+              <div class="os-box">
+                <strong>Windows</strong>
+                <ul>
+                  <li>Win+R &rarr; "cmd" &rarr; Enter</li>
+                  <li>Или: Поиск &rarr; "PowerShell" &rarr; Enter</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Install -->
+        <div class="step-card anim-fade-up d2">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <h3>Установить через npm</h3>
+            <p>Скопируй команду и вставь в терминал:</p>
+            <div class="terminal">
+              <div class="terminal-bar">
+                <span class="t-dot t-red"></span>
+                <span class="t-dot t-yellow"></span>
+                <span class="t-dot t-green"></span>
+              </div>
+              <code><span class="prompt">~ %</span> <span class="command">npm install -g @anthropic-ai/claude-code</span>
+
+<span class="comment"># Проверить установку:</span>
+<span class="prompt">~ %</span> <span class="command">claude --version</span>
+<span class="success">claude 1.x.x</span></code>
+            </div>
+            <div class="note" style="margin-top: 14px;">
+              <span class="note-icon">💡</span>
+              <div>
+                <strong style="display:block; margin-bottom:3px; font-size:13px;">Если npm не установлен</strong>
+                Скачай Node.js с <strong>nodejs.org</strong> &mdash; нажми кнопку <strong>LTS</strong>. После установки Node.js команда npm станет доступна.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Auth -->
+        <div class="step-card anim-fade-up d3">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <h3>Подключить аккаунт Anthropic</h3>
+            <p>Запусти Claude &mdash; он откроет браузер для авторизации:</p>
+            <div class="terminal">
+              <div class="terminal-bar">
+                <span class="t-dot t-red"></span>
+                <span class="t-dot t-yellow"></span>
+                <span class="t-dot t-green"></span>
+              </div>
+              <code><span class="prompt">~ %</span> <span class="command">claude</span>
+
+<span class="comment"># Браузер откроется автоматически.
+# Войди в аккаунт с подпиской Claude Max.
+# Вернись в терминал:</span>
+<span class="success">Authenticated successfully. Welcome!</span></code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Test -->
+        <div class="step-card anim-fade-up d4">
+          <div class="step-number">4</div>
+          <div class="step-body">
+            <h3>Проверить что работает</h3>
+            <p>Задай Claude любой вопрос прямо в терминале:</p>
+            <div class="terminal">
+              <div class="terminal-bar">
+                <span class="t-dot t-red"></span>
+                <span class="t-dot t-yellow"></span>
+                <span class="t-dot t-green"></span>
+              </div>
+              <code><span class="prompt">claude &gt;</span> <span class="command">Привет! Напиши 3 идеи для крипто-контента</span>
+
+<span class="success">Конечно! Вот 3 идеи:
+1. Сравнение торговых ботов: ручной vs алго-трейдинг
+2. Как читать on-chain метрики для принятия решений
+3. Гайд "от нуля до первого бота" для новичков</span></code>
+            </div>
+            <div class="note teal-note" style="margin-top: 14px;">
+              <span class="note-icon">&#10003;</span>
+              <div>
+                Если увидел ответ &mdash; всё работает! На встрече начнём с этого терминала.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== SECTION 3: TOOLS ===== -->
+  <section>
+    <div class="container">
+
+      <div class="section-title anim-fade-up">
+        <div class="section-icon icon-purple">3</div>
+        <h2>Что ещё стоит посмотреть до встречи</h2>
+      </div>
+      <p class="section-subtitle anim-fade-up d1">Не обязательно устанавливать &mdash; просто ознакомься, чтобы на встрече были общие точки.</p>
+
+      <div class="connect-grid anim-fade-up d2">
+        <div class="connect-card">
+          <span class="big-icon">&#9993;</span>
+          <h4>Instantly.ai</h4>
+          <p>Платформа для автоматизации cold outreach. 600+ шаблонов писем, AI-генерация сиквенсов, управление доменами. Прямо по твоему запросу с аутричем админов.</p>
+          <span class="tag tag-coral">Outreach</span>
+        </div>
+
+        <div class="connect-card">
+          <span class="big-icon">&#128172;</span>
+          <h4>Claude.ai (чат)</h4>
+          <p>Веб-версия Claude для быстрого brainstorm-а, написания текстов, анализа. Работает параллельно с Claude Code &mdash; один аккаунт.</p>
+          <span class="tag tag-teal">Контент</span>
+        </div>
+
+        <div class="connect-card">
+          <span class="big-icon">&#128640;</span>
+          <h4>Telegram Bot API</h4>
+          <p>Claude Code умеет создавать ботов и автопостинг в Telegram каналы. Это закроет задачу с контент-генерацией в TG.</p>
+          <span class="tag tag-purple">Автоматизация</span>
+        </div>
+
+        <div class="connect-card">
+          <span class="big-icon">&#128202;</span>
+          <h4>Perplexity (уже есть!)</h4>
+          <p>Ты уже используешь его &mdash; отлично. Perplexity для быстрого ресёрча, Claude Code &mdash; для реализации. Связка работает мощно.</p>
+          <span class="tag tag-blue">Ресёрч</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== SECTION 4: ACTION PLAN ===== -->
+  <section>
+    <div class="container">
+
+      <div class="section-title anim-fade-up">
+        <div class="section-icon icon-coral">4</div>
+        <h2>План направлений</h2>
+      </div>
+      <p class="section-subtitle anim-fade-up d1">Не готовые ответы &mdash; а направления для обсуждения на встрече. Каждое нацелено на быстрый видимый результат.</p>
+
+      <!-- INSIGHT -->
+      <div class="insight-box anim-fade-up d2" style="margin-bottom: 32px;">
+        <span class="insight-icon">&#127919;</span>
+        <div>
+          <h4>Главная мысль</h4>
+          <p>Инвестор хочет увидеть не просто "мы что-то делаем", а <strong>что ты ускорился</strong>. Что AI активировал тебя, и ты стал выдавать результат в 5-10 раз быстрее. Именно это &mdash; тот "сверхрезультат", который снимет вопросы. Твои вехи хороши &mdash; но сам факт velocity и есть результат.</p>
+        </div>
+      </div>
+
+      <!-- Plan 1: Content -->
+      <div class="plan-card anim-fade-up d3">
+        <div class="plan-header">
+          <div class="plan-icon" style="background: var(--coral-light);">&#9997;&#65039;</div>
+          <div>
+            <h3>Контент-машина для Profitage</h3>
+            <div class="plan-subtitle">TG-канал + Binance Square &mdash; быстрый старт</div>
+          </div>
+        </div>
+        <p>Claude Code может генерировать посты, адаптировать их под разные площадки и постить через API. Вместо 1-2 постов в неделю руками &mdash; 2-3 поста в день автоматически.</p>
+        <ul>
+          <li><span class="li-icon">&#128221;</span> Генерация контент-плана на неделю за 5 минут</li>
+          <li><span class="li-icon">&#128260;</span> Автоадаптация: один текст &rarr; TG-пост + Binance Square + Twitter/X</li>
+          <li><span class="li-icon">&#9200;</span> Автопостинг через Telegram Bot API по расписанию</li>
+          <li><span class="li-icon">&#128200;</span> Показать инвестору: "было 5 постов/мес &rarr; стало 60"</li>
+        </ul>
+      </div>
+
+      <!-- Plan 2: Outreach -->
+      <div class="plan-card anim-fade-up d4">
+        <div class="plan-header">
+          <div class="plan-icon" style="background: var(--teal-light);">&#128232;</div>
+          <div>
+            <h3>Аутрич на автопилоте</h3>
+            <div class="plan-subtitle">Партнёрка крипто-пабликов</div>
+          </div>
+        </div>
+        <p>Вместо ручного обхода админов &mdash; систематизированный аутрич. Claude Code + Instantly.ai/аналоги могут закрыть цикл от поиска контактов до follow-up.</p>
+        <ul>
+          <li><span class="li-icon">&#128269;</span> Парсинг и сбор криптоканалов с фильтрацией по нише</li>
+          <li><span class="li-icon">&#9993;</span> Генерация персонализированных предложений (не шаблон &mdash; а адаптация под канал)</li>
+          <li><span class="li-icon">&#128257;</span> Автоматические follow-up через 2-3 дня</li>
+          <li><span class="li-icon">&#128202;</span> Трекинг ответов и конверсии в подключения</li>
+        </ul>
+        <div class="note teal-note" style="margin-top: 16px;">
+          <span class="note-icon">&#128161;</span>
+          <div>
+            Для Telegram-аутрича есть инструменты на базе Telethon (Python-библиотека для Telegram) &mdash; это работает быстрее и дешевле, чем email-аутрич. Обсудим на встрече.
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan 3: Velocity -->
+      <div class="plan-card anim-fade-up d5">
+        <div class="plan-header">
+          <div class="plan-icon" style="background: var(--gold-light);">&#9889;</div>
+          <div>
+            <h3>Активация = сверхрезультат</h3>
+            <div class="plan-subtitle">Что на самом деле хочет увидеть инвестор</div>
+          </div>
+        </div>
+        <p>Инвестор написал: "скачай [AI инструменты] и ты бустанешь себя в 10 раз". Он не ждёт конкретный KPI &mdash; он ждёт <strong>скорость и инициативу</strong>. Вот что можно показать за 1.5-2 недели:</p>
+        <ul>
+          <li><span class="li-icon">&#128640;</span> Неделя 1: контент-машина запущена, аутрич систематизирован, каналы растут</li>
+          <li><span class="li-icon">&#128200;</span> Неделя 2: первые метрики (охваты, подключения, конверсии), дашборд с результатами</li>
+          <li><span class="li-icon">&#127942;</span> Демо инвестору: "Я за 2 недели сделал то, что раньше занимало 2 месяца"</li>
+        </ul>
+        <div class="note" style="margin-top: 16px;">
+          <span class="note-icon">&#127919;</span>
+          <div>
+            <strong style="display:block; margin-bottom:3px; font-size:13px;">Ключевой фрейм для инвестора</strong>
+            "Я подключил AI-стек и за 2 недели: запустил контент-машину на 3 площадки, автоматизировал аутрич, сделал X подключений. Вот дашборд." &mdash; Это именно тот язык, который работает.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== SECTION 5: TIMELINE ===== -->
+  <section>
+    <div class="container">
+
+      <div class="section-title anim-fade-up">
+        <div class="section-icon icon-blue">5</div>
+        <h2>Roadmap на 2 недели</h2>
+      </div>
+      <p class="section-subtitle anim-fade-up d1">Маленькие шаги каждый день &mdash; чтобы видеть прогресс и не буксовать.</p>
+
+      <div class="timeline anim-fade-up d2">
+
+        <div class="timeline-item">
+          <div class="timeline-period">День 1</div>
+          <div class="timeline-dot">&#10003;</div>
+          <div class="timeline-content">
+            <h4>Встреча + настройка стека</h4>
+            <p>Установить Claude Code, настроить Telegram Bot, создать первый контент-план. Сразу после встречи &mdash; первый автоматический пост.</p>
+          </div>
+          <div class="timeline-line"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Дни 2-3</div>
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <h4>Контент-конвейер</h4>
+            <p>Написать скрипт автопостинга. Сгенерировать контент на неделю вперёд. Настроить расписание. Цель: 2 поста/день на автопилоте.</p>
+          </div>
+          <div class="timeline-line"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Дни 4-5</div>
+          <div class="timeline-dot gold">3</div>
+          <div class="timeline-content">
+            <h4>Аутрич-система</h4>
+            <p>Собрать базу криптоканалов. Написать шаблоны предложений. Запустить первую волну аутрича. Цель: 50+ контактов.</p>
+          </div>
+          <div class="timeline-line"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Дни 6-8</div>
+          <div class="timeline-dot gold">4</div>
+          <div class="timeline-content">
+            <h4>Reddit + YouTube эксперименты</h4>
+            <p>Исследовать Reddit-стратегию (Claude поможет с нативными комментариями). Попробовать AI-аватар для коротких видео. Быстрые тесты, не перфекционизм.</p>
+          </div>
+          <div class="timeline-line"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Дни 9-10</div>
+          <div class="timeline-dot teal">5</div>
+          <div class="timeline-content">
+            <h4>Метрики + дашборд</h4>
+            <p>Собрать все результаты в один дашборд. Подготовить отчёт для инвестора. Показать velocity: что было vs что стало.</p>
+          </div>
+          <div class="timeline-line"></div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Демо</div>
+          <div class="timeline-dot teal">&#9733;</div>
+          <div class="timeline-content">
+            <h4>Презентация инвестору</h4>
+            <p>"Я подключил AI-стек и за 2 недели вышел на velocity, которая раньше требовала команду из 3 человек." Конкретные цифры, скриншоты, метрики.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== CLOSING ===== -->
+  <section style="padding: 48px 0 56px;">
+    <div class="container">
+      <div class="agenda-bg anim-fade-up" style="text-align: center; padding: 40px 36px;">
+        <div style="font-size: 36px; margin-bottom: 16px;">&#128640;</div>
+        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; color: var(--text);">Готов &mdash; увидимся на встрече</h2>
+        <p style="font-size: 16px; color: var(--text-muted); max-width: 500px; margin: 0 auto; line-height: 1.6;">
+          Главное &mdash; установи Claude Code до встречи. Остальное обсудим и запустим вместе. Если что-то не получается с установкой &mdash; напиши, разберёмся.
+        </p>
+        <div style="margin-top: 24px;">
+          <a href="https://t.me/timzinin" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: var(--coral); color: #fff; text-decoration: none; padding: 12px 28px; border-radius: 100px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 14px rgba(232,96,76,0.35); transition: transform 0.2s;">
+            Вопросы &mdash; пиши в Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">Tim Zinin</div>
+      <div class="footer-tagline">AI-консалтинг &middot; Автоматизация &middot; Продуктивность</div>
+      <div class="footer-links">
+        <a href="https://t.me/timzinin" target="_blank">Telegram</a>
+        <a href="https://timzinin.com" target="_blank">timzinin.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
